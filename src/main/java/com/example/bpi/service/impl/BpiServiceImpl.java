@@ -5,8 +5,11 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -19,6 +22,8 @@ public class BpiServiceImpl implements BpiService {
   public String getCurrentBpi(String curencyType) {
     String url = String.format("https://api.coindesk.com/v1/bpi/currentprice/%s.json",curencyType);
     ResponseEntity<String> response = restTemplate.getForEntity(url,String.class);
+    if(response == null)
+      throw new NullPointerException("Not Found");
     return response.getBody();
   }
 

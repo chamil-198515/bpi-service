@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.client.RestTemplate;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,6 +38,16 @@ class BpiServiceTest {
   }
 
   @Test
+  void getCurrentBpiEuroTestNotFoundTest(){
+    Throwable exception =  assertThrows(NullPointerException.class, () -> {
+      bpiService.getCurrentBpi("123");
+    });
+    assertEquals("Not Found", exception.getMessage());
+  }
+
+
+
+  @Test
   void getCurrentBpiUsdTestHappyPathTest() throws JSONException {
     String url = "https://api.coindesk.com/v1/bpi/currentprice/usd.json";
     String responseJson = "{\"time\":{\"updated\":\"Jul 11, 2022 17:22:00 UTC\",\"updatedISO\":\"2022-07-11T17:22:00+00:00\",\"updateduk\":\"Jul 11, 2022 at 18:22 BST\"},\"disclaimer\":\"This data was produced from the CoinDesk Bitcoin Price Index (USD). Non-USD currency data converted using hourly conversion rate from openexchangerates.org\",\"bpi\":{\"USD\":{\"code\":\"USD\",\"rate\":\"20,541.8869\",\"description\":\"United States Dollar\",\"rate_float\":20541.8869}}}";
@@ -55,6 +66,15 @@ class BpiServiceTest {
     String actualResponseJson = bpiService.getBpiHistory("eur");
     Assertions.assertEquals(new JSONObject(responseJson).length(),new JSONObject(actualResponseJson).length());
   }
+
+  @Test
+  void getBpiHistoryEuroTestNotFoundTest(){
+    Throwable exception =  assertThrows(NullPointerException.class, () -> {
+      bpiService.getCurrentBpi("123");
+    });
+    assertEquals("Not Found", exception.getMessage());
+  }
+
 
   @Test
   void findHighestAndLowestBpi() {
