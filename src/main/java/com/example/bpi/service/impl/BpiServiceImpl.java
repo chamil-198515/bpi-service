@@ -40,7 +40,7 @@ public class BpiServiceImpl implements BpiService {
   }
 
   @Override
-  public List<String> findHighestAndLowestBpi(String currentBpi, List<String> bpiHistory) {
+  public String findHighestAndLowestBpi(String currentBpi, String bpiHistory) {
     return null;
   }
 }

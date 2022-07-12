@@ -5,5 +5,5 @@ import java.util.List;
 public interface BpiService {
   String getCurrentBpi(String curencyType);
   String getBpiHistory(String curencyType);
-  List<String> findHighestAndLowestBpi(String currentBpi, List<String> bpiHistory);
+  String findHighestAndLowestBpi(String currentBpi, String bpiHistory);
 }
