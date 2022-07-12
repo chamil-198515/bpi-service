@@ -43,7 +43,7 @@ public class BpiServiceImpl implements BpiService {
   public String getCurrentBpi(String curencyType) {
     String url = String.format("https://api.coindesk.com/v1/bpi/currentprice/%s.json",curencyType); // External API return current BPI rate
     ResponseEntity<String> response = restTemplate.getForEntity(url,String.class);
-    if((response.getStatusCode().value() == 404) || response == null) {
+    if((response == null) || (response.getStatusCode().value() == 404))  {
       logger.info(String.format("No result found for given curency type %s", curencyType));
       throw new NullPointerException(NOTFOUND);
     }
@@ -61,7 +61,7 @@ public class BpiServiceImpl implements BpiService {
     LocalDate previousDate = currentDate.minusDays(30); // Date prior to 30 days
     String url = String.format("https://api.coindesk.com/v1/bpi/historical/close.json?start=%s&end=%s&currency=%s", previousDate.toString(), currentDate.toString(), curencyType); //External API that return historical BPI rates
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-    if((response.getStatusCode().value() == 404) || response == null){
+    if((response == null) || (response.getStatusCode().value() == 404)) {
       logger.info(String.format("No historical result found for given curency type %s", curencyType));
       throw new NullPointerException(NOTFOUND);
     }

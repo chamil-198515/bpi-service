@@ -7,7 +7,6 @@ import com.example.bpi.service.impl.BpiServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import sun.jvm.hotspot.utilities.Assert;
 
 @SpringBootTest
 class BpiApplicationTests {
