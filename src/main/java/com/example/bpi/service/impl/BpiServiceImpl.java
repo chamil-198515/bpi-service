@@ -33,6 +33,9 @@ public class BpiServiceImpl implements BpiService {
     LocalDate previousDate = currentDate.minusDays(30);
     String url = String.format("https://api.coindesk.com/v1/bpi/historical/close.json?start=%s&end=%s&currency=%s", previousDate.toString(), currentDate.toString(), curencyType);
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    if(response == null){
+      throw new NullPointerException("Not Found");
+    }
     return response.getBody();
   }
 

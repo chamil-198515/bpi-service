@@ -78,5 +78,6 @@ class BpiServiceTest {
 
   @Test
   void findHighestAndLowestBpi() {
+
   }
 }
